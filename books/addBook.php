@@ -1,9 +1,9 @@
-<?php require('templates/header.php'); ?>
+<?php require('../templates/header.php'); ?>
 <body>
-    <?php require('templates/navigation.php'); ?>
+    <?php require('../templates/navigation.php'); ?>
 
     <div class="container">
-        <?php require('templates/navscroller.php'); ?>
+        <?php require('../templates/navscroller.php'); ?>
 
         <div class="row mb-2">
             <div class="col">
@@ -51,6 +51,6 @@
 
     </div>
 
-    <?php require('templates/footer.php'); ?>
+    <?php require('../templates/footer.php'); ?>
 </body>
 </html>

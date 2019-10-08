@@ -1,0 +1,14 @@
+{
+    "name": "ryebr/library-cms",
+    "description": "Class PHP project",
+    "type": "project",
+    "authors": [
+        {
+            "name": "ryleybridges",
+            "email": "rye.brid@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^3.6"
+    }
+}
