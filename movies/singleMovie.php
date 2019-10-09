@@ -7,7 +7,7 @@
 
         <div class="row mb-2">
             <div class="col">
-                <h1>Movie Title</h1>
+                <h1>Iron Man</h1>
             </div>
         </div>
 
@@ -20,11 +20,11 @@
 
         <div class="row mb-2">
             <div class="col-12 col-sm-4 align-self-center">
-                <img class="img-fluid" src="images/HarryPotter1.jpg" alt="">
+                <img class="img-fluid" src="images/IronMan1.jpg" alt="">
             </div>
             <div class="col-12 col-sm-8 align-self-center">
-                <h3>Movie Title</h3>
-                <h4>Movie Director</h4>
+                <h3>Iron Man</h3>
+                <h4>Jon Favreau</h4>
             </div>
         </div>
 
