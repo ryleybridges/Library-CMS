@@ -58,13 +58,24 @@ if($_POST){
         $safeYear = mysqli_real_escape_string($dbc, $year);
         $safeDescription = mysqli_real_escape_string($dbc, $description);
 
-        $sql = "INSERT INTO `authors`(`name`) VALUES ('$safeAuthor')";
-        $result = mysqli_query($dbc, $sql);
-        if($result && mysqli_affected_rows($dbc) > 0){
-            var_dump('author was added');
+        // $sql = "INSERT INTO `authors`(`name`) VALUES ('$safeAuthor')";
+        // $result = mysqli_query($dbc, $sql);
+        // if($result && mysqli_affected_rows($dbc) > 0){
+        //     $authorID = $dbc->insert_id;
+        // } else {
+        //     die('Something went wrong with adding in an author');
+        // }
+        $authorID = 1;
+        $booksSql ="INSERT INTO `books`(`title`, `year`, `description`, `author_id`) VALUES ('$safeTitle',$safeYear,'$safeDescription',$authorID)";
+        // die($booksSql);
+        $booksResult = mysqli_query($dbc, $booksSql);
+        if($booksResult && mysqli_affected_rows($dbc) > 0){
+            header('Location:singleBook.php');
         } else {
-            die('Something went wrong with adding in an author');
+            die('Something went wrong with adding in a book');
         }
+
+
     }
 }
 ?>
