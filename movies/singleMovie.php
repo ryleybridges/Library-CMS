@@ -1,4 +1,16 @@
-<?php require('../templates/header.php'); ?>
+<?php
+    require('../templates/header.php');
+    $movieID = $_GET['id'];
+    $sql = "SELECT * FROM `movies` WHERE _id = $movieID";
+    $result = mysqli_query($dbc, $sql);
+    if($result && mysqli_affected_rows($dbc) > 0){
+        $singleMovie = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    } else if($result && mysqli_affected_rows($dbc) === 0){
+        header('Location: ../errors/404.php');
+    } else {
+        die('Something went wrong with getting a single movie');
+    }
+ ?>
 <body>
     <?php require('../templates/navigation.php'); ?>
 
@@ -7,7 +19,7 @@
 
         <div class="row mb-2">
             <div class="col">
-                <h1>Iron Man</h1>
+                <h1><?php echo $singleMovie['title']; ?></h1>
             </div>
         </div>
 
@@ -23,14 +35,16 @@
                 <img class="img-fluid" src="images/IronMan1.jpg" alt="">
             </div>
             <div class="col-12 col-sm-8 align-self-center">
-                <h3>Iron Man</h3>
-                <h4>Jon Favreau</h4>
+                <h3><?php echo $singleMovie['title']; ?></h3>
+                <h4><?php echo $singleMovie['year']; ?></h4>
+                <h5><?php echo $singleMovie['director_id']; ?></h5>
+                <h5><?php echo $singleMovie['runtime'] ?> minutes</h5>
             </div>
         </div>
 
         <div class="row mb-2">
             <div class="col-12">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p><?php echo $singleMovie['description']; ?></p>
             </div>
         </div>
     </div>
@@ -40,7 +54,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete this movie?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete <?php echo $singleMovie['title']; ?>?</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

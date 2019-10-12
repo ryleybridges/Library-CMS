@@ -50,6 +50,7 @@ if($result){
             </div>
         <?php endif; ?>
     </div>
+</div>
 
     <?php require('../templates/footer.php'); ?>
 </body>
