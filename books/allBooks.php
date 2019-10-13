@@ -1,13 +1,13 @@
 <?php
-require('../templates/header.php');
+    require('../templates/header.php');
 
-$sql = "SELECT `_id`, `title` FROM `books` WHERE 1";
-$result = mysqli_query($dbc, $sql);
-if($result){
-    $allBooks = mysqli_fetch_all($result, MYSQLI_ASSOC);
-} else {
-    die('Something went wrong with getting all of our books');
-}
+    $sql = "SELECT `_id`, `title` FROM `books` WHERE 1";
+    $result = mysqli_query($dbc, $sql);
+    if($result){
+        $allBooks = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    } else {
+        die('Something went wrong with getting all of our books');
+    }
 ?>
 <body>
     <?php require('../templates/navigation.php'); ?>
