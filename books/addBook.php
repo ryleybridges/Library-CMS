@@ -61,7 +61,8 @@ if($_POST){
         $findSql = "SELECT * FROM `authors` WHERE name = '$safeAuthor'";
         $findResult = mysqli_query($dbc, $findSql);
         if ($findResult && mysqli_affected_rows($dbc) > 0) {
-            // we have found an author with that name
+            $foundAuthor = mysqli_fetch_array($findResult, MYSQLI_ASSOC);
+            $authorID = $foundAuthor['_id'];
         } else if ($findResult && mysqli_affected_rows($dbc) === 0){
             $sql = "INSERT INTO `authors`(`name`) VALUES ('$safeAuthor')";
             $result = mysqli_query($dbc, $sql);
@@ -74,7 +75,6 @@ if($_POST){
             die('Something went wrong with find an author');
         }
 
-        die();
         $booksSql ="INSERT INTO `books`(`title`, `year`, `description`, `author_id`) VALUES ('$safeTitle',$safeYear,'$safeDescription',$authorID)";
         // die($booksSql);
         $booksResult = mysqli_query($dbc, $booksSql);
