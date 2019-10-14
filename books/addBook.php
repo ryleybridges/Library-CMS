@@ -92,11 +92,17 @@ if($_POST){
             die('Something went wrong with find an author');
         }
 
-        $booksSql ="INSERT INTO `books`(`title`, `year`, `description`, `author_id`) VALUES ('$safeTitle',$safeYear,'$safeDescription',$authorID)";
-        // die($booksSql);
+        if(isset($_GET['id'])){
+            $booksSql = "UPDATE `books` SET `title`='$safeTitle',`year`=$safeYear,`description`='$safeDescription',`author_id`=$authorID WHERE _id = $bookID";
+        } else {
+            $booksSql ="INSERT INTO `books`(`title`, `year`, `description`, `author_id`) VALUES ('$safeTitle',$safeYear,'$safeDescription',$authorID)";
+        }
+
         $booksResult = mysqli_query($dbc, $booksSql);
         if($booksResult && mysqli_affected_rows($dbc) > 0){
-            $bookID = $dbc->insert_id;
+            if(!isset($_GET['id'])){
+                $bookID = $dbc->insert_id;
+            }
             header('Location:singleBook.php?id='.$bookID);
         } else {
             die('Something went wrong with adding in a book');
@@ -134,7 +140,7 @@ if($_POST){
 
             <div class="row mb-2">
                 <div class="col">
-                    <form action="./books/addBook.php" method="post" enctype="multipart/form-data" autocomplete="off">
+                    <form action="./books/addBook.php<?php if(isset($_GET['id'])) { echo '?id='.$_GET['id'];}; ?>" method="post" enctype="multipart/form-data" autocomplete="off">
                         <div class="form-group">
                             <label for="title">Book Title</label>
                             <input type="text" class="form-control" name="title" placeholder="Enter book title" value="<?php if( isset($title)){ echo $title; }; ?>">
