@@ -1,7 +1,7 @@
 <?php
     require('../templates/header.php');
     $movieID = $_GET['id'];
-    $sql = "SELECT * FROM `movies` WHERE _id = $movieID";
+    $sql = "SELECT movies.`_id` as moviesID, `title`, `genre`, `year`, `runtime`, `description`, directors.`name` as director_name FROM `movies` INNER JOIN movies ON movies.director_id = directors._id WHERE movies._id = $moviesID";
     $result = mysqli_query($dbc, $sql);
     if($result && mysqli_affected_rows($dbc) > 0){
         $singleMovie = mysqli_fetch_array($result, MYSQLI_ASSOC);

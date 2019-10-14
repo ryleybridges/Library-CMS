@@ -63,20 +63,28 @@ if($_POST){
         $safeRuntime = mysqli_real_escape_string($dbc, $runtime);
         $safeDescription = mysqli_real_escape_string($dbc, $description);
 
-        // $sql = "INSERT INTO `directors`(`name`) VALUES ('$safeDirector')";
-        // $result = mysqli_query($dbc, $sql);
-        // if($result && mysqli_affected_rows($dbc) > 0){
-        //     var_dump('director was added');
-        // } else {
-        //     die('Something went wrong with adding in a director');
-        // }
+        $findSql = "SELECT * FROM `directors` WHERE name = '$safeDirector'";
+        $findResult = mysqli_query($dbc, $findSql);
+        if ($findResult && mysqli_affected_rows($dbc) > 0) {
+            $foundDirector = mysqli_fetch_array($findResult, MYSQLI_ASSOC);
+            $directorID = $foundDirector['_id'];
+        } else if ($findResult && mysqli_affected_rows($dbc) === 0){
+            $sql = "INSERT INTO `directors`(`name`) VALUES ('$safeDirector')";
+            $result = mysqli_query($dbc, $sql);
+            if($result && mysqli_affected_rows($dbc) > 0){
+                $directorID = $dbc->insert_id;
+            } else {
+                die('Something went wrong with adding in a director');
+            }
+        } else {
+            die('Something went wrong with find an director');
+        }
 
-        $directorID = 1;
-        $moviesSql ="INSERT INTO `movies`(`title`, `genre`, `year`, `runtime`, `description`, `director_id`) VALUES ('$safeTitle','$safeGenre',$safeYear,$safeRuntime,'$safeDescription',$authorID)";
-        // die($booksSql);
+        $moviesSql ="INSERT INTO `movies`(`title`, `genre`, `year`, `runtime`, `description`, `director_id`) VALUES ('$safeTitle','$safeGenre',$safeYear,$safeRuntime,'$safeDescription',$directorID)";
         $moviesResult = mysqli_query($dbc, $moviesSql);
         if($moviesResult && mysqli_affected_rows($dbc) > 0){
-            header('Location:singleMovie.php');
+            $movieID = $dbc->insert_id;
+            header('Location:singleMovie.php?id='.$movieID);
         } else {
             die('Something went wrong with adding in a movie');
         }

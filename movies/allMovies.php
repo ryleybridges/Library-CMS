@@ -1,5 +1,6 @@
 <?php
     require('../templates/header.php');
+
     $sql = "SELECT `_id`, `title` FROM `movies` WHERE 1";
     $result = mysqli_query($dbc, $sql);
     if ($result) {
