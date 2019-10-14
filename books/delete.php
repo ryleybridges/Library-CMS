@@ -6,7 +6,7 @@
     $dotenv = Dotenv\Dotenv::create(__DIR__ . '/..');
     $dotenv->load();
 
-    require('connection.php');
+    require('../templates/connection.php');
 
     $sql = "DELETE FROM `books` WHERE _id = $id";
     $result = mysqli_query($dbc, $sql);
